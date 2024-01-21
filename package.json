@@ -2,9 +2,10 @@
   "name": "veloci-server",
   "version": "1.0.0",
   "description": "Dealer Management System",
-  "main": "index.js",
+  "type": "module",
+  "main": "src/index.js",
   "scripts": {
-    "dev": "nodemon index.js",
+    "dev": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Fardin Hasan Neloy",
@@ -15,5 +16,8 @@
     "express": "^4.18.2",
     "mongodb": "^6.3.0",
     "mongoose": "^8.1.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.2.4"
   }
 }
