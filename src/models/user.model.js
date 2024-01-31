@@ -20,18 +20,22 @@ roll: {
     type: String,
     require: true,
 },
+avater: {
+    type: String,
+    require: true
+},
 password: {
     type: String,
     require: [true, 'Password is requred!'],
 },
 refreshtoken: {
-    require: true,
+    type: String,
 },
 },{timestamps: true})
 
 userSchema.pre("save", async function (next) {
     if(!this.isModified("Password")) return next();
-    this.password = bcrypt.hash(this.password,10);
+    this.password = await bcrypt.hash(this.password,10);
     next()
 })
 
