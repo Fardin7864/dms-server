@@ -5,13 +5,22 @@ dotenv.config({
 import mongoose from "mongoose";
 import { DB_NAME } from "../constants.js";
 
+// Connection options with write concern 'majority'
+const options = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    writeConcern: {
+      w: 'majority'
+    }
+  };
+
 
 const connectDB = async () => {
     try {
         // console.log(`${process.env.MONGODB_URI}/${DB_NAME}`)
-        // const connectionInstance = await mongoose.connect(`${process.env.MONGODB_URI}/${DB_NAME}`)
-        const connectionInstance = await mongoose.connect(`mongodb+srv://veloci:hamba78@cluster0.7k1zdza.mongodb.net/?retryWrites=true/veloci-server`)
+        const connectionInstance = await mongoose.connect(`${process.env.MONGODB_URI}/${DB_NAME}`, options)
         console.log(`\n MongoDB connected !! DB HOST: ${connectionInstance.connection.host}`);
+        console.log(`${process.env.MONGODB_URI}/${DB_NAME}`)
     } catch (error) {
         console.log("MONGODB connection FAILED ", error);
         process.exit(1)
