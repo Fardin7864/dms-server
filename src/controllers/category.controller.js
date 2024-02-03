@@ -61,4 +61,15 @@ const updateCategory = asyncHandler (async (req,res) => {
     
  })
 
- export { createCategory, updateCategory, deleteCategory }
+const getCategoryFromDatabase = asyncHandler ( async (req, res) => { 
+    try {
+        const categorys = await Category.find()
+        return res
+                .status(200)
+                .json(new ApiResponse(200, categorys, "Loade category successfully!"))
+    } catch (error) {
+        throw new ApiError(500, "Faild to load categorys!")
+    }
+ })
+
+ export { createCategory, updateCategory, deleteCategory,getCategoryFromDatabase }

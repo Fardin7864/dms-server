@@ -1,6 +1,6 @@
 import mongoose, { model } from "mongoose";
 
- const employeeSchema = new mongoose.Schema({
+const employeeSchema = new mongoose.Schema({
 employeeName: {
     type: String,
     require: true,
