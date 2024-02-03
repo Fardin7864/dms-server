@@ -199,4 +199,19 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
   }
 });
 
-export { registerUser, loginUser, logOut, refreshAccessToken };
+const getAllUsers = asyncHandler (async (req,res) => { 
+  try {
+    const users = await User.find();
+    if (!users) {
+      throw new ApiError (400, "user not founded !")
+    }
+
+    return res 
+          .status(200)
+          .json(new ApiResponse(200, users, "User loaded succesfully!"))
+  } catch (error) {
+    throw new ApiError (500, "user did not loaded !")
+  }
+ })
+
+export { registerUser, loginUser, logOut, refreshAccessToken, getAllUsers };
