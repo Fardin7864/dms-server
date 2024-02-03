@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { deleteCompany, registerCompany, updateCompany } from "../controllers/company.controler.js";
+import { deleteCompany, registerCompany, updateCompany } from "../controllers/company.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 
