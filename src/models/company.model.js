@@ -5,7 +5,7 @@ const companySchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    group: {
+    groupe: {
         type: String,
         require: true,
     }
