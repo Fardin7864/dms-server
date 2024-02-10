@@ -4,6 +4,16 @@ import { ApiError } from "../utils/apiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
 
+const getCompanys = asyncHandler (async (req, res) => { 
+  try {
+    const companys = await Company.find();
+    return res
+        .status(200)
+        .json(new ApiResponse(200, companys, "All company funded!"))
+  } catch (error) {
+    throw new ApiError(500, "Server error on the company get route!")
+  }
+ })
 
 const registerCompany = asyncHandler( async (req, res) => { 
     let { companyName, groupe} = req.body
@@ -34,7 +44,7 @@ const registerCompany = asyncHandler( async (req, res) => {
         .json(new ApiResponse(200,company, "Company registerd succussfully!"))
  })
 
- const deleteCompany = asyncHandler(async (req,res) => { 
+const deleteCompany = asyncHandler(async (req,res) => { 
     const id =req.params.id;
     console.log(id)
 
@@ -58,15 +68,15 @@ const updateCompany = asyncHandler (async (req,res) => {
 
     let {companyName, groupe} = req.body;
       // Convert to lowercase
-  companyName = companyName.toLowerCase();
-  groupe = groupe.toLowerCase();
+   companyName = companyName.toLowerCase();
+   groupe = groupe.toLowerCase();
 
     if(!companyName || !groupe) throw new ApiError(400, "Company name and groupe required!")
 
     const companyToUpdate = await Company.findById(id)
      if(!companyToUpdate) throw new ApiError(400, "Company is not founded!")
 
-    const updatedCompany =  await Company.findByIdAndUpdate(id, {
+     const updatedCompany =  await Company.findByIdAndUpdate(id, {
         $set: {
             companyName: companyName.toLowerCase(), 
             groupe: groupe.toLowerCase()
@@ -82,4 +92,4 @@ const updateCompany = asyncHandler (async (req,res) => {
 
 
 
- export { registerCompany, deleteCompany, updateCompany }
+ export {getCompanys, registerCompany, deleteCompany, updateCompany }

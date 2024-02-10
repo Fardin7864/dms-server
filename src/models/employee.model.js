@@ -1,4 +1,4 @@
-import mongoose, { model } from "mongoose";
+import mongoose from "mongoose";
 
 const employeeSchema = new mongoose.Schema({
 employeeName: {
@@ -18,10 +18,7 @@ designation: {
     type: String,
     require: true,
 },
-address: {
-    address:{type: String},
-    mobile: {type: String, require: true},
-},
+ mobile: {type: String, require: true},
 startingDate: {
     type: Date,
 }
