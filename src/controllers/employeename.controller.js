@@ -18,21 +18,21 @@ const getEmployee = asyncHandler (async (req, res) => {
 
 const employeeAddController = asyncHandler ( async (req,res) => { 
     console.log(req.body)
-    let {employeeName, email, company, designation, address, startingDate} = req.body;
+    let {employeeName, email, company, designation, mobile, startingDate} = req.body;
     employeeName = employeeName?.toLowerCase();
     email = email?.toLowerCase();
     designation = designation?.toLowerCase();
-    address = address?.toLowerCase();
+    mobile = mobile?.toLowerCase();
     // startingDate = startingDate?.toLowerCase();
 
 
-    if([employeeName, email, company, designation, address].some((field) =>  field?.trim() === "")) throw new ApiError(400, "EmployeeName, email, designation, address and company required!")
+    if([employeeName, email, company, designation, mobile].some((field) =>  field?.trim() === "")) throw new ApiError(400, "EmployeeName, email, designation, mobile and company required!")
 
     const employee = await Employee.create({
         employeeName,
         email,
         designation,
-        address,
+        mobile,
         startingDate: new Date(),
         company
     })
@@ -49,22 +49,22 @@ const employeeAddController = asyncHandler ( async (req,res) => {
     const id  = req.params.id;
     if(!id) throw ApiError(400, "Id is requred to update employee!");
 
-    let {employeeName, email, company, designation, address, startingDate} = req.body;
+    let {employeeName, email, company, designation, mobile, startingDate} = req.body;
 
     employeeName = employeeName.toLowerCase();
     email = email.toLowerCase();
     designation = designation.toLowerCase();
-    address = address.toLowerCase();
+    mobile = mobile.toLowerCase();
     startingDate = startingDate.toLowerCase();
 
 
-    if([employeeName, email, company, designation, address].some((field) =>  field.trim() === "")) throw new ApiError(400, "EmployeeName, email, designation, address and company required!")
+    if([employeeName, email, company, designation, mobile].some((field) =>  field.trim() === "")) throw new ApiError(400, "EmployeeName, email, designation, mobile and company required!")
 
     const updatedEmployee = {
         employeeName,
         email,
         designation,
-        address,
+        mobile,
         startingDate,
         company
     }
