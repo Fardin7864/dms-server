@@ -16,6 +16,19 @@ const getEmployee = asyncHandler (async (req, res) => {
     }
  })
 
+const getSingleEmployee = asyncHandler (async (req,res) => { 
+    try {
+        const {id} = req.params;
+        console.log(id)
+        const employee = await Employee.findById(id);
+        return res
+                .status(200)
+                .json(new ApiResponse(200, employee, "Employee loaded!"))       
+    } catch (error) {
+        throw new ApiError(500, "Single employee faild to load!")
+    }
+ })
+
 const employeeAddController = asyncHandler ( async (req,res) => { 
     console.log(req.body)
     let {employeeName, email, company, designation, mobile, startingDate} = req.body;
@@ -55,7 +68,6 @@ const employeeAddController = asyncHandler ( async (req,res) => {
     email = email.toLowerCase();
     designation = designation.toLowerCase();
     mobile = mobile.toLowerCase();
-    startingDate = startingDate.toLowerCase();
 
 
     if([employeeName, email, company, designation, mobile].some((field) =>  field.trim() === "")) throw new ApiError(400, "EmployeeName, email, designation, mobile and company required!")
@@ -65,7 +77,6 @@ const employeeAddController = asyncHandler ( async (req,res) => {
         email,
         designation,
         mobile,
-        startingDate,
         company
     }
 
@@ -90,4 +101,4 @@ const deleteEmployee = asyncHandler (async (req,res) => {
 
  })
 
- export {getEmployee, employeeAddController, employeeUpdate, deleteEmployee }
+ export {getEmployee, getSingleEmployee, employeeAddController, employeeUpdate, deleteEmployee }
