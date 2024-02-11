@@ -201,7 +201,10 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 
 const getAllUsers = asyncHandler (async (req,res) => { 
   try {
-    const users = await User.find();
+    const filter = {};
+    const id = req.query.id;
+    if(id) filter._id = id;
+    const users = await User.find(filter);
     if (!users) {
       throw new ApiError (400, "user not founded !")
     }

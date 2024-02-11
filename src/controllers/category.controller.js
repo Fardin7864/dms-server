@@ -63,7 +63,12 @@ const updateCategory = asyncHandler (async (req,res) => {
 
 const getCategoryFromDatabase = asyncHandler ( async (req, res) => { 
     try {
-        const categorys = await Category.find()
+        const filter = {}
+        const id = req.query.id;
+        if(id) {
+            filter._id = id;
+        }
+        const categorys = await Category.find(filter)
         return res
                 .status(200)
                 .json(new ApiResponse(200, categorys, "Loade category successfully!"))

@@ -8,6 +8,6 @@ const router = Router();
 router.route("/add").post(createCategory)
 router.route("/update/:id").patch(updateCategory)
 router.route("/delete/:id").delete(deleteCategory)
-router.route("/categorys").get(getCategoryFromDatabase)
+router.route("/").get(getCategoryFromDatabase)
 
 export default router;
