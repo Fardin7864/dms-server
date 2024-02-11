@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema({
-    item: {
+    product: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Product',
         require: true,
     },
-    qnt: {
+    qty: {
         type: Number,
         require: true,
         default: 1
@@ -21,14 +21,13 @@ const orderSchema = new mongoose.Schema({
     },
     orderDate: {
         type: String,
-        require: true,
         default: new Date()
     },
     status: {
         type: String,
-        Enumerator: ['Painding', 'Chanceled', 'Deliverired'],
+        Enumerator: ['painding', 'chanceled', 'deliverired'],
         require: true,
-        default: 'Painding',
+        default: 'painding',
     }
 },{timestamps: true});
 

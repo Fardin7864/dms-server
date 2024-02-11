@@ -25,6 +25,7 @@ import categoryRouter from './routes/category.route.js'
 import employeeRouter from './routes/employee.route.js'
 import product from './routes/product.route.js'
 import inventory from './routes/inventory.route.js'
+import order from './routes/order.route.js'
 
 
 //routes 
@@ -35,6 +36,7 @@ app.use("/api/v1/category", categoryRouter)
 app.use("/api/v1/employee", employeeRouter)
 app.use("/api/v1/product", product)
 app.use("/api/v1/inventory", inventory)
+app.use("/api/v1/order", order)
 
 
 export {app}
