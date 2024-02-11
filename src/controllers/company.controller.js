@@ -3,6 +3,16 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/apiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
+const getSingleCompany = asyncHandler(async (req,res) => { 
+  try {
+    const id = req.params.id;
+    const company = await Company.findById(id);
+    if(!company) throw new ApiError(400,"Company not founded!")
+    return res.status(200).json(new ApiResponse(200, company, "Company founded!"))
+  } catch (error) {
+    throw new ApiError(500, "Server error to load single Company!")
+  }
+ })
 
 const getCompanys = asyncHandler (async (req, res) => { 
   try {
@@ -92,4 +102,4 @@ const updateCompany = asyncHandler (async (req,res) => {
 
 
 
- export {getCompanys, registerCompany, deleteCompany, updateCompany }
+ export {getCompanys,getSingleCompany , registerCompany, deleteCompany, updateCompany }
