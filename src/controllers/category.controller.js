@@ -48,6 +48,10 @@ const updateCategory = asyncHandler (async (req,res) => {
     
         const category = await Category.findById(id)
         if(!category) throw new ApiError (400, "This category is not found!")
+
+
+        const isExist = await Category.findOne({categoryName})
+        if(isExist) throw new ApiError(400, "This category already exist!")
     
         await Category.findByIdAndUpdate(id, {
             $set: {

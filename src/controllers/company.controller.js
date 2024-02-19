@@ -26,26 +26,28 @@ const getCompanys = asyncHandler (async (req, res) => {
  })
 
 const registerCompany = asyncHandler( async (req, res) => { 
-    let { companyName, groupe} = req.body
+    let { companyName, group} = req.body
       // Convert to lowercase
   companyName = companyName.toLowerCase();
-  groupe = groupe.toLowerCase();
+  group = group.toLowerCase();
 
-    if ([companyName, groupe].some((field) =>  field?.trim() === "" )) {
-        throw new ApiError(400, "Company name and Groupe required!")
+    if ([companyName, group].some((field) =>  field?.trim() === "" )) {
+        throw new ApiError(400, "Company name and group required!")
     }
 
     const existCompany = await Company.findOne({
-        $and : [{companyName: companyName.toLowerCase()}, {groupe: groupe.toLowerCase()}]
+        $and : [{companyName: companyName.toLowerCase()}, {group: group.toLowerCase()}]
     })
 
-    console.log(existCompany)
+    // console.log(existCompany)
 
-    if(existCompany) throw new ApiError(400, "Already exist this company!")
+    if(existCompany) {
+      throw new ApiError(400, "Already exist this company!")
+    }
 
     const company = await Company.create({
         companyName: companyName.toLowerCase(), 
-        groupe: groupe.toLowerCase()
+        group: group.toLowerCase()
     })
 
 
@@ -74,14 +76,14 @@ const deleteCompany = asyncHandler(async (req,res) => {
 
 const updateCompany = asyncHandler (async (req,res) => { 
     const id = req.params.id;
-    if(!id) throw new ApiError(400, "Id required for update company name or groupe!")
+    if(!id) throw new ApiError(400, "Id required for update company name or group!")
 
-    let {companyName, groupe} = req.body;
+    let {companyName, group} = req.body;
       // Convert to lowercase
    companyName = companyName.toLowerCase();
-   groupe = groupe.toLowerCase();
+   group = group.toLowerCase();
 
-    if(!companyName || !groupe) throw new ApiError(400, "Company name and groupe required!")
+    if(!companyName || !group) throw new ApiError(400, "Company name and group required!")
 
     const companyToUpdate = await Company.findById(id)
      if(!companyToUpdate) throw new ApiError(400, "Company is not founded!")
@@ -89,7 +91,7 @@ const updateCompany = asyncHandler (async (req,res) => {
      const updatedCompany =  await Company.findByIdAndUpdate(id, {
         $set: {
             companyName: companyName.toLowerCase(), 
-            groupe: groupe.toLowerCase()
+            group: group.toLowerCase()
         }
      })
 
