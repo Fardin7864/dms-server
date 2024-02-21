@@ -35,7 +35,7 @@ const registerUser = asyncHandler(async (req, res) => {
   // return res
 
   const { username, email, roll, password } = req.body;
-  console.log("email", email);
+  // console.log("email", email);
   if ([username, email, roll, password].some((field) => field?.trim() === ""))
     throw new ApiError(400, "All fields are required");
 
@@ -49,7 +49,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   const avaterLocalPath = req.files?.avater[0]?.path;
 
-  console.log(avaterLocalPath);
+  // console.log(avaterLocalPath);
   if (!avaterLocalPath) {
     throw new ApiError(400, "Avater file is required!");
   }

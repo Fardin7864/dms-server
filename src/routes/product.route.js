@@ -6,9 +6,9 @@ const router = Router();
 
 
 router.route("/").get(getProduct);
-router.route("/add-product").post(addProducts);
-router.route("/update-product/:id").put(updateProduct);
-router.route("/delete-product/:id").delete(deleteProduct);
+router.route("/add").post(addProducts);
+router.route("/update/:id").put(updateProduct);
+router.route("/delete/:id").delete(deleteProduct);
 
 
 

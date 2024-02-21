@@ -2,6 +2,7 @@ import { Product } from "../models/product.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/apiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
+import { uploadOnCloydinary } from "../utils/cloudinary.js";
 
 const getProduct = asyncHandler(async (req, res) => {
   try {
@@ -19,7 +20,7 @@ const getProduct = asyncHandler(async (req, res) => {
 });
 
 const addProducts = asyncHandler(async (req, res) => {
-  let { productName, price, category, company, wet, photo } = req.body;
+  let { productName, price, category, company, wet } = req.body;
   productName = productName.toLowerCase();
   category = category.toLowerCase();
 
@@ -36,7 +37,19 @@ const addProducts = asyncHandler(async (req, res) => {
   const existProduct = await Product.findOne({
     $and: [{ productName }, { price }, { category }, { company }],
   });
-  console.log(existProduct);
+  // console.log(existProduct);
+// console.log(req.body)
+  const avaterLocalPath = req.files?.photo[0]?.path;
+
+  // console.log(avaterLocalPath);
+  // if (!avaterLocalPath) {
+  //   throw new ApiError(400, "Avater file is required!");
+  // }
+
+  const photo = await uploadOnCloydinary(avaterLocalPath) || "";
+  // if (!photo) {
+  //   throw new ApiError(400, "Photo file is required!");
+  // }
 
   if (existProduct) throw new ApiError(400, "This Product already exist!");
 
@@ -46,7 +59,7 @@ const addProducts = asyncHandler(async (req, res) => {
     company,
     category,
     wet,
-    photo,
+    photo: photo
   });
   return res
     .status(200)
@@ -70,7 +83,7 @@ const updateProduct = asyncHandler(async (req, res) => {
   const existProduct = await Product.findOne({
     $and: [{ productName }, { price }, { category }, { company }],
   });
-  console.log(existProduct);
+  // console.log(existProduct);
 
   if (existProduct) throw new ApiError(400, "You do not update anything!");
 
